@@ -1,3 +1,5 @@
+Project ID : 24-25J-303
+
 Overview of the project:
 
 The project to enhance the tea supply chain at Watawala Tea Factory aims to improve key processes using data-driven strategies. By applying advanced tools like data analysis, machine learning, and predictive models, the focus is on optimizing tea demand predictions, managing inventory efficiently, ensuring sufficient labor availability, and streamlining logistics. The objective is to create a more efficient operation that reduces costs, boosts productivity, and improves the overall delivery and production process for tea.
