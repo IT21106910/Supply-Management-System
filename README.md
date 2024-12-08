@@ -18,3 +18,26 @@ Architectural Diagram:
 
 Dependencies:
 
+Data Manipulation and Analysis:
+
+1. Pandas - For data cleaning, manipulation, and analysis.
+
+2. Numpy - For numerical computations and handling arrays.
+
+Data Visualization:
+
+1. Matplotlib - For creating visualizations like line charts and bar plots.
+
+2. Seaborn - For advanced statistical visualizations.
+
+Machine Learning and Deep Learning:
+
+1. Scikit-Learn (sklearn) - For preprocessing, training, and evaluating machine learning models.
+
+2. TensorFlow - For building and training the LSTM model.
+
+3. PyTorch (Torch) - An alternative deep learning framework if preferred over TensorFlow.
+
+Model Type:
+
+LSTM (Long Short-Term Memory) - A type of neural network architecture suitable for sequential data.
