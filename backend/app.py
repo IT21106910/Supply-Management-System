@@ -10,6 +10,7 @@ from bson import ObjectId
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a strong secret key
 
+
 # Database connection
 client = MongoClient("mongodb+srv://shanuka:shanuka1234@cluster0.nbyqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client['weather_and_demand']
