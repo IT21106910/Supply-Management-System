@@ -15,9 +15,7 @@ app.secret_key = 'your_secret_key'  # Replace with a strong secret key
 client = MongoClient("mongodb+srv://shanuka:shanuka1234@cluster0.nbyqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client['weather_and_demand']
 collection1 = db['demand_predictions']
-collection2 = db['raw_tea_demand']
-collection3 = db['labour_availability']  # For labor availability
-collection4 = db['traffic_timeslots']  # Traffic timeslots
+
 
 
 
