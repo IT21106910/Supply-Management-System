@@ -20,8 +20,7 @@ collection3 = db['labour_availability']  # For labor availability
 collection4 = db['traffic_timeslots']  # Traffic timeslots
 
 
-# Dummy user credentials---------------------------------------------------------------------------------------
-USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
+
 
 # weather demand ---------------------------------------------------------------
 # Load models -weather and demand
@@ -77,7 +76,8 @@ models = {
 
 
 
-
+# Dummy user credentials---------------------------------------------------------------------------------------
+USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
 @app.route('/logout')
 def logout():
