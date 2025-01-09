@@ -26,27 +26,7 @@ collection4 = db['traffic_timeslots']  # Traffic timeslots
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
-@app.route('/')
-def home():
-    return redirect(url_for('login'))
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        if username == USER_CREDENTIALS['username'] and password == USER_CREDENTIALS['password']:
-            session['user'] = username
-            return redirect(url_for('dashboard'))
-        else:
-            return render_template('login.html', error="Invalid Credentials")
-    return render_template('login.html')
-
-@app.route('/dashboard')
-def dashboard():
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    return render_template('dashboard.html')
 
 
 
