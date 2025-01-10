@@ -74,7 +74,34 @@ models = {
     'rathnapura': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_rathnapura_v2.pth')
 }
 
+def infer_demand(data, model, weeks, district):
 
+    demand_column = f'demand_{district}'  # Dynamic demand column based on district
+    scaler = MinMaxScaler()
+    data['demand_scaled'] = scaler.fit_transform(data[[demand_column]])  # Scale the demand column
+
+    results = []
+    sequence_length = 7  # Use the last 7 days for prediction
+
+    for _ in range(weeks):
+        # Prepare the last sequence for inference
+        last_sequence = data.iloc[-sequence_length:][['precip_encoded', 'demand_scaled']].values
+        last_sequence = torch.tensor(last_sequence, dtype=torch.float32).unsqueeze(0).to(device)
+
+        # Model inference
+        model.eval()
+        with torch.no_grad():
+            prediction = model(last_sequence).cpu().numpy()
+
+        # Inverse scale the prediction to get the actual demand value
+        predicted_demand = scaler.inverse_transform(prediction).flatten()[0]
+        results.append(predicted_demand)
+
+        # Update the dataset with the predicted value for sequential predictions
+        new_row = pd.DataFrame([[0, predicted_demand]], columns=['precip_encoded', 'demand_scaled'])
+        data = pd.concat([data, new_row], ignore_index=True)
+
+    return results
 
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
