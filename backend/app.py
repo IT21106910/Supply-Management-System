@@ -54,6 +54,9 @@ models = {
     'colombo': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_colombo_v2.pth'),
     'gampaha': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_gampaha_v2.pth'),
     'kalutara': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kalutara_v2.pth'),
+    'kandy': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kandy_v2.pth'),
+    'matale': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_matale_v2.pth')
+   
 }
 
 
