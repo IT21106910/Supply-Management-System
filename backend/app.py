@@ -20,12 +20,41 @@ collection3 = db['labour_availability']  # For labor availability
 collection4 = db['traffic_timeslots']  # Traffic timeslots
 
 
-
-
-
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
+# weather demand ---------------------------------------------------------------
+# Load models -weather and demand
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+class LSTMModel(torch.nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, output_size):
+        super(LSTMModel, self).__init__()
+        self.lstm = torch.nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
+        self.fc = torch.nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        h0 = torch.zeros(self.lstm.num_layers, x.size(0), self.lstm.hidden_size).to(x.device)
+        c0 = torch.zeros(self.lstm.num_layers, x.size(0), self.lstm.hidden_size).to(x.device)
+        out, _ = self.lstm(x, (h0, c0))
+        out = self.fc(out[:, -1, :])
+        return out
+
+def load_model(model_path):
+    input_size = 2
+    hidden_size = 64
+    num_layers = 2
+    output_size = 1
+    model = LSTMModel(input_size, hidden_size, num_layers, output_size).to(device)
+    model.load_state_dict(torch.load(model_path, map_location=device))
+    model.eval()
+    return model
+
+models = {
+    'colombo': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_colombo_v2.pth'),
+    'gampaha': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_gampaha_v2.pth'),
+    'kalutara': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kalutara_v2.pth'),
+}
 
 
 
