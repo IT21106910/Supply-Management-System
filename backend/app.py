@@ -58,8 +58,10 @@ models = {
     'matale': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_matale_v2.pth'),
     'nuwaraeliya': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_nuwaraeliya_v2.pth'),
     'galle': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_galle_v2.pth'),
-    'matara': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_matara_v2.pth')
-
+    'matara': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_matara_v2.pth'),
+    'hambantota': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_hambantota_v2.pth'),
+    'jaffna': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_jaffna_v2.pth'),
+    'vanni': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_vanni_v2.pth')
 }
 
 
