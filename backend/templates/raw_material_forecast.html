@@ -6,4 +6,114 @@
     <title>Raw Material Demand Forecast</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='../static/images/raw.jpg') }}");
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed; /* Keeps the background fixed during scrolling */
+            font-family:cursive; /* Ensures text remains readable */
+            color: #f0f0f0; /* Light font color for contrast */
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: rgba(34, 34, 34, 0.9); /* Dark semi-transparent background for table */
+            color: #f9f9f9; /* Light text color for readability */
+            font-size: 16px;
+            border-radius: 10px; /* Rounded corners */
+            overflow: hidden; /* Clips overflow for rounded borders */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds subtle shadow for depth */
+        }
+
+        th {
+            background-color: #222831; /* Dark gray header background */
+            color: #f1c40f; /* Gold color for header text */
+            padding: 12px 8px;
+            text-align: center;
+            text-transform: uppercase; /* Makes header text uppercase */
+            font-weight: bold;
+            font-size: 14px;
+            border-bottom: 2px solid #393e46; /* Adds distinction between header and body */
+        }
+
+        td {
+            padding: 10px 8px;
+            text-align: center;
+            background-color: rgba(51, 51, 51, 0.85); /* Slightly lighter gray for cells */
+            color: #ffffff; /* White text for readability */
+            border-bottom: 1px solid #444444; /* Adds row separation */
+        }
+
+        tr:hover {
+            background-color: #2d3436; /* Changes row background on hover for emphasis */
+        }
+
+        thead th:first-child,
+        tbody td:first-child {
+            border-left: none; /* Removes border on the left side for the first column */
+        }
+
+        thead th:last-child,
+        tbody td:last-child {
+            border-right: none; /* Removes border on the right side for the last column */
+        }
+
+        .forecast-btn {
+            padding: 10px 20px;
+            background-color: #007bff; /* Bright blue button for visibility */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px; /* Rounded corners */
+            font-weight: bold; /* Make text stand out */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Add subtle shadow */
+        }
+
+        .forecast-btn:hover {
+            background-color: #0056b3; /* Darker blue for hover effect */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.6); /* Enhance shadow on hover */
+        }
+
+        .popup {
+            display: overlay;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8); /* Dark popup background */
+            color: #ffffff; /* Light text color for popup */
+            border: 1px solid #444; /* Subtle border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); /* Stronger shadow */
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+            overflow-y: auto;
+            max-height: 80%;
+        }
+
+        .popup-close {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            float: right;
+            border-radius: 15px; /* Rounded close button */
+            font-weight: bold;
+        }
+
+        .popup-close:hover {
+            background-color: darkred;
+        }
+
+        .prediction-container{
+            width: 100%;
+            margin-left: 50px;
+        }
+    </style>
 </head>
