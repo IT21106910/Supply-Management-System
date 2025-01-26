@@ -103,6 +103,38 @@ def infer_demand(data, model, weeks, district):
 
     return results
 
+
+# weather and demand---------------------------------------------------------------------------------
+@app.route('/demand-prediction', methods=['GET', 'POST'])
+def demand_prediction():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        weeks = int(request.form['weeks'])
+        timestamps = [(datetime.now() + timedelta(days=7 * (i + 1))).strftime('%Y-%m-%d') for i in range(weeks)]
+
+        results = {}
+        for district, model in models.items():
+            data = pd.read_csv(f'./datasets/demand_datasets/{district}.csv')
+            data['scaler'] = MinMaxScaler().fit(data[['demand']])
+            data['demand_scaled'] = data['scaler'].transform(data[['demand']])
+            results[district] = infer_demand(data, model, weeks)
+
+            # Save to database if not already present
+            for i, timestamp in enumerate(timestamps):
+                record = {
+                    "timestamp": str(timestamp),  # Ensure timestamp is a string
+                    "district": district,  # District is already a string
+                    "week": int(i + 1),  # Week as an integer
+                    "demand_value": float(results[district][i]),  # Convert demand_value to Python float
+                }
+                if collection1.count_documents(record) == 0:
+                    collection1.insert_one(record)
+
+        return render_template('demand_prediction.html', results=results, weeks=weeks)
+    return render_template('demand_prediction.html')
+
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
