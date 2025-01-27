@@ -115,5 +115,22 @@
             width: 100%;
             margin-left: 50px;
         }
+
     </style>
 </head>
+<body>
+    <div class="prediction-container">
+
+    
+    <h1>Raw Material Demand Forecast</h1> 
+    <form method="POST" action="/raw-material-forecast">
+        <label for="weeks">Select Weeks:</label>
+        <select name="weeks" id="weeks">
+            <option value="1">1 Week</option>
+            <option value="2">2 Weeks</option>
+            <option value="3">3 Weeks</option>
+            <option value="4">4 Week</option>
+        </select>
+        <button type="submit" class="forecast-btn ">Forecast</button>
+    </form>
+</body>
