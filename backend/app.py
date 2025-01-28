@@ -61,7 +61,9 @@ models = {
     'matara': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_matara_v2.pth'),
     'hambantota': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_hambantota_v2.pth'),
     'jaffna': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_jaffna_v2.pth'),
-    'vanni': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_vanni_v2.pth')
+    'vanni': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_vanni_v2.pth'),
+    'batticaloa': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_batticaloa_v2.pth'),
+    'digamadulla': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_digamadulla_v2.pth')
 }
 
 
