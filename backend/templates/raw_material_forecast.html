@@ -132,4 +132,31 @@
         </select>
         <button type="submit" class="forecast-btn ">Forecast</button>
     </form>
+
+    {% if results %}
+    <div id="popup" class="results popup">
+        <button class="popup-close" onclick="closePopup()">Close</button>
+    <h2>Forecast Results</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Week</th>
+                <th>Date</th>
+                <th>Demand Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.week }}</td>
+                <td>{{ result.date }}</td>
+                <td>{{ result.demand_value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% endif %}
+    <a href="/dashboard"><button class="button-d">Back to Dashboard</button></a>
+</div>
 </body>
