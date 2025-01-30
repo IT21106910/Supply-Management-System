@@ -63,7 +63,9 @@ models = {
     'jaffna': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_jaffna_v2.pth'),
     'vanni': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_vanni_v2.pth'),
     'batticaloa': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_batticaloa_v2.pth'),
-    'digamadulla': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_digamadulla_v2.pth')
+    'digamadulla': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_digamadulla_v2.pth'),
+    'trincomalee': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_trincomalee_v2.pth'),
+    'kurunegala': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kurunegala_v2.pth')
 }
 
 
