@@ -65,7 +65,10 @@ models = {
     'batticaloa': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_batticaloa_v2.pth'),
     'digamadulla': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_digamadulla_v2.pth'),
     'trincomalee': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_trincomalee_v2.pth'),
-    'kurunegala': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kurunegala_v2.pth')
+    'kurunegala': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kurunegala_v2.pth'),
+    'puttalam': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_puttalam_v2.pth'),
+    'anuradhapura': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_anuradhapura_v2.pth'),
+    
 }
 
 
