@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: url("{{ url_for('static', filename='../static/images/plucking.webp') }}");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dashboard-container {
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            border-radius: 20px;
+            padding: 30px;
+            width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            font-family:'Times New Roman', Times, serif;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .menu-button {
+            width: 60%;
+        padding: 10px;
+        background: linear-gradient(63deg, rgba(94,155,73,1) 0%, rgba(156,188,89,1) 100%);
+        border: none;
+        border-radius: 30px;
+        font-size: 1em;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        margin-top: 20px; /* Adjust space between buttons */
+        margin-bottom: 12px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Slight text shadow for depth */
+        font-family:'Times New Roman', Times, serif;
+        }
+        .menu-button:hover {
+            background: linear-gradient(63deg, rgba(79,133,62,1) 0%, rgba(135,163,76,1) 100%);
+
+        }
+        body::before {
+         content: '';
+          position: absolute;
+           top: 0;
+          left: 0;
+            width: 100%;
+          height: 100%;
+            background-color: rgba(255, 255, 255, 0.2); /* Adjust transparency here */
+           z-index: 0; /* Place it behind other content */
+        }
+
+        .container {
+        position: relative;
+        z-index: 1; /* Place the container above the overlay */
+        }
+
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        background-color: #5cb85c;
+        /* background-color: gray; */
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: #4cae4c;
+    
+    }
+
+    .logout-Btn {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        background-color: rgb(236, 95, 95);
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 1001;
+        position: absolute;
+        /* position:sticky; */
+        top: 5px;
+        right: 5px;
+        font-weight: 600;
+}
+    .logout-Btn:hover {
+        background-color: rgb(87, 87, 87);
+    
+    }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+        <!-- <div class="buttons"> -->
+            <a href="/demand-prediction"><button class="menu-button">Demand Prediction</button></a>
+            <a href="/raw-material-forecast"><button class="menu-button">Raw Material Prediction</button></a>
+            <a href="/labor-availability"><button class="menu-button">Labour Force</button></a>
+            <a href="/logistics"><button class="menu-button">Logistic</button></a>
+        <!-- </div> -->
+    </div>
+    <a href="/logout"><button class="logout-Btn">Logout</button></a>
+   
+</body>
+</html>

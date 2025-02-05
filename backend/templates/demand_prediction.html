@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demand Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='../static/images/demand.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: cursive;
+            color: #f0f0f0;
+        }
+        .prediction-container {
+            width: 100%;
+            margin-left: 50px;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: rgba(34, 34, 34, 0.9);
+            color: #f9f9f9;
+            font-size: 16px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        th {
+            background-color: #222831;
+            color: #f1c40f;
+            padding: 12px 8px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            border-bottom: 2px solid #393e46;
+        }
+        td {
+            padding: 10px 8px;
+            text-align: center;
+            background-color: rgba(51, 51, 51, 0.85);
+            color: #ffffff;
+            border-bottom: 1px solid #444444;
+        }
+        tr:hover {
+            background-color: #2d3436;
+        }
+        thead th:first-child,
+        tbody td:first-child {
+            border-left: none;
+        }
+        thead th:last-child,
+        tbody td:last-child {
+            border-right: none;
+        }
+        .forecast-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+        .forecast-btn:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.6);
+        }
+        .popup {
+            display: overlay;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            border: 1px solid #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+            overflow-y: auto;
+            max-height: 80%;
+        }
+        .popup-close {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            float: right;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+        .popup-close:hover {
+            background-color: darkred;
+        }
+        .button-d {
+            margin-top: 15px;
+            padding: 8px 15px;
+            font-size: 16px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .button-d:hover {
+            background-color: #222;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="prediction-container">
+        <h1>Demand Prediction</h1>
+        <form method="POST" action="/forecast">
+            <label for="weeks">Select No of Weeks:</label>
+            <select name="weeks" id="weeks" required>
+                <option value="1">1 week</option>
+                <option value="2">2 weeks</option>
+                <option value="3">3 weeks</option>
+                <option value="4">4 weeks</option>
+            </select>
+            <button class="forecast-btn" type="submit">Forecast</button>
+        </form>
+
+        {% if results %}
+        <div id="popup" class="results popup">
+            <button class="popup-close" onclick="closePopup()">Close</button>
+            <h2>Forecast Results</h2>
+
+            {% set grand_totals = [0] * weeks %}  <!-- Initialize grand totals -->
+
+            {% for district, data in results.items() %}
+            <table border="1">
+                <caption>{{ district.title() }}</caption>
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Demand (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(weeks) %}
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ "%.2f"|format(data[i]) }}</td>
+                    </tr>
+                    {% set _ = grand_totals.__setitem__(i, grand_totals[i] + data[i]) %}
+                    {% endfor %}
+                    <tr style="font-weight:bold; background-color:#393e46;">
+                        <td>Total</td>
+                        <td>{{ "%.2f"|format(data[:weeks] | sum) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+
+            <!-- Grand total table below all -->
+            <table border="1" style="margin-top: 30px; background-color: #111;">
+                <caption><strong>Grand Total (All Districts)</strong></caption>
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Total Demand (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(weeks) %}
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ "%.2f"|format(grand_totals[i]) }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr style="font-weight:bold; background-color:#393e46;">
+                        <td>Overall Total</td>
+                        <td>{{ "%.2f"|format(grand_totals | sum) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        {% endif %}
+
+        <a href="/dashboard"><button class="button-d">Back to Dashboard</button></a>
+    </div>
+
+    <!-- Overlay for popup -->
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+
+    <script>
+        // Function to close the popup
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
+            if (popup) popup.style.display = 'none';
+            if (overlay) overlay.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
