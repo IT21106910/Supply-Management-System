@@ -68,7 +68,11 @@ models = {
     'kurunegala': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kurunegala_v2.pth'),
     'puttalam': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_puttalam_v2.pth'),
     'anuradhapura': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_anuradhapura_v2.pth'),
-    
+    'polonnaruwa': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_polonnaruwa_v2.pth'),
+    'badulla': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_badulla_v2.pth'),
+    'monaragala': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_monaragala_v2.pth'),
+    'kegalle': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_kegalle_v2.pth'),
+    'rathnapura': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_rathnapura_v2.pth')
 }
 
 
