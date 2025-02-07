@@ -135,6 +135,58 @@ def demand_prediction():
         return render_template('demand_prediction.html', results=results, weeks=weeks)
     return render_template('demand_prediction.html')
 
+@app.route('/forecast', methods=['POST'])
+def forecast():
+    try:
+        # Get the selected number of weeks from the form
+        weeks = int(request.form['weeks'])  # Example: "1" for the first week
+        districts = ['colombo', 'gampaha', 'kalutara', 'kandy', 'matale', 'nuwaraeliya', 'galle', 'matara', 'hambantota', 'jaffna', 'vanni', 'batticaloa', 'digamadulla', 'trincomalee', 'kurunegala', 'puttalam', 'anuradhapura','polonnaruwa', 'badulla', 'monaragala', 'kegalle','rathnapura']
+        results = {}
+
+        # Load the datasets and models for each district
+        for district in districts:
+            data = pd.read_csv(f'./datasets/demand_datasets/{district}.csv')
+            model_path = f'./models/demand_predictor_models/weather_tea_demand_predictor_{district}_v2.pth'
+            model = LSTMModel(input_size=2, hidden_size=64, num_layers=2, output_size=1)
+            model.load_state_dict(torch.load(model_path))
+            model.to(device)
+
+            # Perform demand prediction for all 4 weeks
+            predictions = infer_demand(data, model, 4, district)
+            results[district] = predictions
+
+            # Save results to MongoDB
+            for i in range(4):  # Always process all 4 weeks
+                week = f"Week {i + 1}"
+                timestamp = (datetime.now() + timedelta(days=7 * (i + 1))).strftime('%Y-%m-%d')
+
+                # Check if the record already exists
+                existing = collection1.find_one({
+                    "timestamp": timestamp,
+                    "district": district,
+                    "week": week
+                })
+
+                # If no existing record, insert the new record
+                if not existing:
+                    collection1.insert_one({
+                        "timestamp": timestamp,
+                        "district": district,
+                        "week": week,
+                        "demand_value": float(predictions[i])
+                    })
+
+        # Render results in the template
+        return render_template('demand_prediction.html', results=results, weeks=weeks)
+
+    except Exception as e:
+        return str(e), 500
+
+
+
+    
+
+
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
