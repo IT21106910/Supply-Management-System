@@ -214,6 +214,8 @@ data2.sort_values('timestamp', inplace=True)
 scaler2 = MinMaxScaler()
 scaled_values2 = scaler2.fit_transform(data2['value'].values.reshape(-1, 1))
 
+# Define the forecasting route
+@app.route('/raw-material-forecast', methods=['GET', 'POST'])
 
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
