@@ -210,6 +210,9 @@ data2 = pd.read_csv('./datasets/weekly_raw_supply_for_inventory.csv')
 data2['timestamp'] = pd.to_datetime(data2['timestamp'])
 data2.sort_values('timestamp', inplace=True)
 
+# Scale the data
+scaler2 = MinMaxScaler()
+
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
