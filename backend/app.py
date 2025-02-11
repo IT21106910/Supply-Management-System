@@ -208,6 +208,7 @@ model2 = load_model2("./models/lstm_raw_tea_demand_model_v2.h5", compile=False)
 # Load and preprocess data
 data2 = pd.read_csv('./datasets/weekly_raw_supply_for_inventory.csv')
 data2['timestamp'] = pd.to_datetime(data2['timestamp'])
+data2.sort_values('timestamp', inplace=True)
 
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
