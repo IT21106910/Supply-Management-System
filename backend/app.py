@@ -198,7 +198,10 @@ def forecast():
     except Exception as e:
         return str(e), 500
 
+# raw material demand ---------------------------------------------------------------
 
+# Load the trained LSTM model
+model2 = load_model2("./models/lstm_raw_tea_demand_model_v2.h5", compile=False)
 
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
