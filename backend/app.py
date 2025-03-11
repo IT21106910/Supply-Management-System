@@ -217,7 +217,17 @@ scaled_values2 = scaler2.fit_transform(data2['value'].values.reshape(-1, 1))
 # Define the forecasting route
 @app.route('/raw-material-forecast', methods=['GET', 'POST'])
 def raw_material_forecast():
-    
+    try:
+        # Predefined week start offsets
+        week_offsets = [28, 35, 42, 49]
+        week_labels = [
+            "The week started 28 days later from today",
+            "The week started 35 days later from today",
+            "The week started 42 days later from today",
+            "The week started 49 days later from today"
+        ]
+
+        
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
