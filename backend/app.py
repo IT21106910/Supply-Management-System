@@ -228,6 +228,9 @@ def raw_material_forecast():
         ]
 
         
+        results = []
+
+        if request.method == 'POST':
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
