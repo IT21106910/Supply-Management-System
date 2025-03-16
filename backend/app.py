@@ -227,10 +227,12 @@ def raw_material_forecast():
             "The week started 49 days later from today"
         ]
 
-        
         results = []
 
         if request.method == 'POST':
+             # Get the selected week from the dropdown
+            selected_weeks = int(request.form['weeks'])  # Example: "2" for the first 2 weeks
+
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
