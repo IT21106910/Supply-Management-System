@@ -233,6 +233,10 @@ def raw_material_forecast():
              # Get the selected week from the dropdown
             selected_weeks = int(request.form['weeks'])  # Example: "2" for the first 2 weeks
 
+# Forecasting for the next 4 weeks
+            last_sequence = scaled_values2[-4:]  # Sequence length is 4
+
+            
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
