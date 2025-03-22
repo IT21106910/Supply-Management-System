@@ -166,6 +166,7 @@ def forecast():
                     "district": district,
                     "week": week
                 })
+
                 # If no existing record, insert the new record
                 if not existing:
                     collection1.insert_one({
@@ -174,11 +175,13 @@ def forecast():
                         "week": week,
                         "demand_value": float(predictions[i])
                     })
+
         # Render results in the template
         return render_template('demand_prediction.html', results=results, weeks=weeks)
 
     except Exception as e:
         return str(e), 500
+
 
 
 # Dummy user credentials---------------------------------------------------------------------------------------
