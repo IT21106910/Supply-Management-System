@@ -238,7 +238,8 @@ def raw_material_forecast():
             last_sequence = last_sequence.reshape(1, 4, 1)
             forecast = []
 
-
+            for i in range(4):
+                pred = model2.predict(last_sequence, verbose=0)
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
