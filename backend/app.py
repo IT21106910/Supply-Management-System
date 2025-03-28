@@ -240,6 +240,9 @@ def raw_material_forecast():
 
             for i in range(4):
                 pred = model2.predict(last_sequence, verbose=0)
+                forecast.append(pred[0, 0])
+                last_sequence = np.append(last_sequence[:, 1:, :], pred.reshape(1, 1, 1), axis=1)
+
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
