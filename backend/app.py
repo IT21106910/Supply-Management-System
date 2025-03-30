@@ -243,6 +243,17 @@ def raw_material_forecast():
                 forecast.append(pred[0, 0])
                 last_sequence = np.append(last_sequence[:, 1:, :], pred.reshape(1, 1, 1), axis=1)
 
+             # Transform predictions back to original scale
+            forecast = scaler2.inverse_transform(np.array(forecast).reshape(-1, 1)).flatten()
+
+             # Save all 4 weeks' records to MongoDB
+            for i, offset in enumerate(week_offsets):
+                week_start_date = (datetime.now() + timedelta(days=offset)).strftime('%Y-%m-%d')
+                existing_record = collection2.find_one({
+                    "timestamp": week_start_date,
+                    "week": f"Week {i + 1}"
+                })
+
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
