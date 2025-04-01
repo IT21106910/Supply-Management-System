@@ -254,6 +254,7 @@ def raw_material_forecast():
                     "week": f"Week {i + 1}"
                 })
 
+                if not existing_record:
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
 
