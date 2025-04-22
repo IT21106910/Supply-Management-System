@@ -19,9 +19,6 @@ collection2 = db['raw_tea_demand']
 collection3 = db['labour_availability']  # For labor availability
 collection4 = db['traffic_timeslots']  # Traffic timeslots
 
-
-
-
 # weather demand ---------------------------------------------------------------
 # Load models -weather and demand
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -74,6 +71,8 @@ models = {
     'rathnapura': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_rathnapura_v2.pth')
 }
 
+
+
 def infer_demand(data, model, weeks, district):
 
     demand_column = f'demand_{district}'  # Dynamic demand column based on district
@@ -102,6 +101,33 @@ def infer_demand(data, model, weeks, district):
         data = pd.concat([data, new_row], ignore_index=True)
 
     return results
+
+
+
+# Dummy user credentials---------------------------------------------------------------------------------------
+USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
+
+@app.route('/')
+def home():
+    return redirect(url_for('login'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == USER_CREDENTIALS['username'] and password == USER_CREDENTIALS['password']:
+            session['user'] = username
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template('login.html', error="Invalid Credentials")
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template('dashboard.html')
 
 
 # weather and demand---------------------------------------------------------------------------------
@@ -134,6 +160,7 @@ def demand_prediction():
 
         return render_template('demand_prediction.html', results=results, weeks=weeks)
     return render_template('demand_prediction.html')
+
 
 @app.route('/forecast', methods=['POST'])
 def forecast():
