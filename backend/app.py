@@ -186,14 +186,12 @@ def forecast():
             for i in range(4):  # Always process all 4 weeks
                 week = f"Week {i + 1}"
                 timestamp = (datetime.now() + timedelta(days=7 * (i + 1))).strftime('%Y-%m-%d')
-
                 # Check if the record already exists
                 existing = collection1.find_one({
                     "timestamp": timestamp,
                     "district": district,
                     "week": week
                 })
-
                 # If no existing record, insert the new record
                 if not existing:
                     collection1.insert_one({
@@ -202,7 +200,6 @@ def forecast():
                         "week": week,
                         "demand_value": float(predictions[i])
                     })
-
         # Render results in the template
         return render_template('demand_prediction.html', results=results, weeks=weeks)
 
