@@ -71,8 +71,6 @@ models = {
     'rathnapura': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_rathnapura_v2.pth')
 }
 
-
-
 def infer_demand(data, model, weeks, district):
 
     demand_column = f'demand_{district}'  # Dynamic demand column based on district
@@ -101,8 +99,6 @@ def infer_demand(data, model, weeks, district):
         data = pd.concat([data, new_row], ignore_index=True)
 
     return results
-
-
 
 # Dummy user credentials---------------------------------------------------------------------------------------
 USER_CREDENTIALS = {'username': 'admin', 'password': 'admin123'}
