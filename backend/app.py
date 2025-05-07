@@ -21,7 +21,6 @@ collection4 = db['traffic_timeslots']  # Traffic timeslots
 # weather demand ---------------------------------------------------------------
 # Load models -weather and demand
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 class LSTMModel(torch.nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, output_size):
         super(LSTMModel, self).__init__()
@@ -44,7 +43,6 @@ def load_model(model_path):
     model.load_state_dict(torch.load(model_path, map_location=device))
     model.eval()
     return model
-
 models = {
     'colombo': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_colombo_v2.pth'),
     'gampaha': load_model('./models/demand_predictor_models/weather_tea_demand_predictor_gampaha_v2.pth'),
@@ -78,7 +76,6 @@ def infer_demand(data, model, weeks, district):
 
     results = []
     sequence_length = 7  # Use the last 7 days for prediction
-
     for _ in range(weeks):
         # Prepare the last sequence for inference
         last_sequence = data.iloc[-sequence_length:][['precip_encoded', 'demand_scaled']].values
